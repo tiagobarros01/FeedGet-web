@@ -15,6 +15,7 @@ export function CloseButton(props: CloseButtonProps) {
         border-2 border-transparent 
       focus:border-brand-500 
         focus:outline-none
+        transition-colors
       "
       title="Close feedback form"
       {...props}

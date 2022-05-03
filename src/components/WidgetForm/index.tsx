@@ -1,28 +1,29 @@
 import { ComponentPropsWithoutRef, useState } from 'react';
 import { FeedbackType } from '../../static/FeedbackTypes';
-import { CloseButton } from '../CloseButton';
-import { FeedbackTypeStep } from './Steps/FeedbackTypes';
+import { FeedbackContentStep } from './Steps/FeedbackContentStep';
+import { FeedbackTypeStep } from './Steps/FeedbackTypeStep';
 
 type WidgetFormProps = ComponentPropsWithoutRef<'div'>;
 
 export function WidgetForm(props: WidgetFormProps) {
   const [feedbackType, setFeedbackTypes] = useState<FeedbackType | null>(null);
 
+  function handleRestartFeedback() {
+    setFeedbackTypes(null);
+  }
+
   return (
     <div
       className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto"
       {...props}
     >
-      <header>
-        <span className="text-xl leading-6">Deixe seu feedback</span>
-
-        <CloseButton />
-      </header>
-
       {!feedbackType ? (
         <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackTypes} />
       ) : (
-        <p>Hello world</p>
+        <FeedbackContentStep
+          feedbackType={feedbackType}
+          onRestartFeedback={handleRestartFeedback}
+        />
       )}
 
       <footer className="text-xs text-neutral-400">

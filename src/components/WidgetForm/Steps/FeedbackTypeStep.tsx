@@ -1,5 +1,6 @@
 import { Children, ComponentPropsWithoutRef } from 'react';
 import { FeedbackType, feedbackTypes } from '../../../static/FeedbackTypes';
+import { CloseButton } from '../../CloseButton';
 
 type FeedbackTypeStepProps = ComponentPropsWithoutRef<'div'> & {
   onFeedbackTypeChanged(key: FeedbackType): void;
@@ -10,12 +11,19 @@ export function FeedbackTypeStep({
   ...rest
 }: FeedbackTypeStepProps) {
   return (
-    <div className="flex py-8 gap-2 w-full" {...rest}>
-      {Children.toArray(
-        Object.entries(feedbackTypes).map(([key, value]) => {
-          return (
-            <button
-              className="
+    <>
+      <header>
+        <span className="text-xl leading-6">Deixe seu feedback</span>
+
+        <CloseButton />
+      </header>
+
+      <div className="flex py-8 gap-2 w-full" {...rest}>
+        {Children.toArray(
+          Object.entries(feedbackTypes).map(([key, value]) => {
+            return (
+              <button
+                className="
                   bg-zinc-800
                   rounded-lg
                   py-5
@@ -31,15 +39,16 @@ export function FeedbackTypeStep({
                   focus:border-brand-500
                   focus:outline-none
                 "
-              type="button"
-              onClick={() => onFeedbackTypeChanged(key as FeedbackType)}
-            >
-              <img src={value.image.source} alt={value.image.alt} />
-              <span>{value.title}</span>
-            </button>
-          );
-        })
-      )}
-    </div>
+                type="button"
+                onClick={() => onFeedbackTypeChanged(key as FeedbackType)}
+              >
+                <img src={value.image.source} alt={value.image.alt} />
+                <span>{value.title}</span>
+              </button>
+            );
+          })
+        )}
+      </div>
+    </>
   );
 }

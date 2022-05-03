@@ -1,5 +1,5 @@
 import { ArrowLeft } from 'phosphor-react';
-import { ComponentPropsWithoutRef, useState } from 'react';
+import { ComponentPropsWithoutRef, FormEvent, useState } from 'react';
 import { FeedbackType, feedbackTypes } from '../../../static/FeedbackTypes';
 import { CloseButton } from '../../CloseButton';
 import { CameraButton } from '../CameraButton';
@@ -15,8 +15,18 @@ export function FeedbackContentStep({
   ...rest
 }: FeedbackContentStepProps) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
+  const [comment, setComment] = useState('');
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
+
+  function handleSubmitFeedback(event: FormEvent) {
+    event.preventDefault();
+
+    console.log({
+      comment,
+      screenshot,
+    });
+  }
 
   return (
     <>
@@ -42,7 +52,7 @@ export function FeedbackContentStep({
         <CloseButton />
       </header>
 
-      <form className="my-4 w-full">
+      <form className="my-4 w-full" onSubmit={handleSubmitFeedback}>
         <textarea
           className="
             min-w-[304px]
@@ -64,6 +74,8 @@ export function FeedbackContentStep({
             scrollbar-thin
           "
           placeholder="Tell in details what's happening..."
+          value={comment}
+          onChange={(event) => setComment(event.target.value)}
         />
 
         <footer className="flex gap-2 mt-2">
@@ -74,6 +86,7 @@ export function FeedbackContentStep({
 
           <button
             type="submit"
+            disabled={!comment}
             className="
               p-2 
               bg-brand-500 
@@ -90,7 +103,9 @@ export function FeedbackContentStep({
               focus:ring-offset-2
               focus:ring-offset-zinc-900
               focus:ring-brand-500
-              transition-colors
+              transition-all
+              disabled:opacity-50
+              disabled:hover:bg-brand-500
             "
           >
             Send feedback

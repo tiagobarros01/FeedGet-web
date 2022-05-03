@@ -7,11 +7,13 @@ import { CameraButton } from '../CameraButton';
 type FeedbackContentStepProps = ComponentPropsWithoutRef<'div'> & {
   feedbackType: FeedbackType;
   onRestartFeedback(): void;
+  onFeedbackSent(): void;
 };
 
 export function FeedbackContentStep({
   feedbackType,
   onRestartFeedback,
+  onFeedbackSent,
   ...rest
 }: FeedbackContentStepProps) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
@@ -26,6 +28,8 @@ export function FeedbackContentStep({
       comment,
       screenshot,
     });
+
+    onFeedbackSent();
   }
 
   return (

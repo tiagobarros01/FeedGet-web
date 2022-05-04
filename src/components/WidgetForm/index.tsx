@@ -37,12 +37,12 @@ export function WidgetForm(props: WidgetFormProps) {
       )}
 
       <footer className="text-xs text-neutral-400">
-        Feito com ♥ pela{' '}
+        made with ♥ by {' '}
         <a
           className="underline underline-offset-2"
-          href="https://rocketseat.com.br"
+          href="https://github.com/tiagobarros01"
         >
-          Rocketseat
+          Tiago Barros
         </a>
       </footer>
     </div>

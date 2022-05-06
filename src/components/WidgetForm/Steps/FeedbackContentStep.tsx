@@ -1,7 +1,10 @@
+import axios from 'axios';
 import { ArrowLeft } from 'phosphor-react';
 import { ComponentPropsWithoutRef, FormEvent, useState } from 'react';
+import { api } from '../../../services/api';
 import { FeedbackType, feedbackTypes } from '../../../static/FeedbackTypes';
 import { CloseButton } from '../../CloseButton';
+import { Loading } from '../../Loading';
 import { CameraButton } from '../CameraButton';
 
 type FeedbackContentStepProps = ComponentPropsWithoutRef<'div'> & {
@@ -18,18 +21,32 @@ export function FeedbackContentStep({
 }: FeedbackContentStepProps) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState('');
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false);
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
-  function handleSubmitFeedback(event: FormEvent) {
+  async function handleSubmitFeedback(event: FormEvent) {
+    setIsSendingFeedback(true);
+
     event.preventDefault();
 
-    console.log({
+    const paramsToSubmit = {
+      type: feedbackType,
       comment,
       screenshot,
-    });
+    };
 
-    onFeedbackSent();
+    try {
+      await api.post('/feedbacks', paramsToSubmit);
+
+      onFeedbackSent();
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        console.log(err);
+      }
+    } finally {
+      setIsSendingFeedback(false);
+    }
   }
 
   return (
@@ -90,7 +107,7 @@ export function FeedbackContentStep({
 
           <button
             type="submit"
-            disabled={!comment}
+            disabled={!comment || isSendingFeedback}
             className="
               p-2 
               bg-brand-500 
@@ -112,7 +129,7 @@ export function FeedbackContentStep({
               disabled:hover:bg-brand-500
             "
           >
-            Send feedback
+            {isSendingFeedback ? <Loading /> : 'Send feedback'}
           </button>
         </footer>
       </form>

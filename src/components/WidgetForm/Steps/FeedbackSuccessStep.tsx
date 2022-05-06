@@ -40,16 +40,19 @@ export function FeedbackSuccessStep({
           className="
           py-2 
           px-6 mt-6 
-          bg-zinc-800 
+          dark:bg-zinc-800 
+          bg-zinc-100 
           rounded-md 
           border-transparent 
           text-sm leading-6 
-          hover:bg-zinc-700 
+          dark:hover:bg-zinc-700 
+          hover:bg-zinc-200 
           transition-all 
           focus:outline-none
           focus:ring-2
           focus:ring-offset-2
-          focus:ring-offset-zinc-900
+          dark:focus:ring-offset-zinc-900
+          focus:ring-offset-zinc-200
           focus:ring-brand-500
         "
         >

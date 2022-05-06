@@ -10,8 +10,10 @@ export function CloseButton(props: CloseButtonProps) {
       className="
         top-5
         right-5 absolute 
-      text-zinc-400
-      hover:text-zinc-100 
+      dark:text-zinc-400
+      dark:hover:text-zinc-100 
+      hover:text-zinc-800 
+      text-zinc-500
         border-2 border-transparent 
       focus:border-brand-500 
         focus:outline-none

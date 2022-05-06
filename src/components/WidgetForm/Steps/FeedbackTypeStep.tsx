@@ -24,7 +24,8 @@ export function FeedbackTypeStep({
             return (
               <button
                 className="
-                  bg-zinc-800
+                  dark:bg-zinc-800
+                  bg-zinc-100
                   rounded-lg
                   py-5
                   w-24
@@ -43,6 +44,7 @@ export function FeedbackTypeStep({
                 onClick={() => onFeedbackTypeChanged(key as FeedbackType)}
               >
                 <img src={value.image.source} alt={value.image.alt} />
+
                 <span>{value.title}</span>
               </button>
             );

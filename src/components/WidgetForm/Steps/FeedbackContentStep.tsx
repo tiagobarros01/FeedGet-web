@@ -30,11 +30,15 @@ export function FeedbackContentStep({
 
     event.preventDefault();
 
-    const paramsToSubmit = {
+    const paramsToSubmit: any = {
       type: feedbackType,
       comment,
       screenshot,
     };
+
+    if (!screenshot) {
+      delete paramsToSubmit.screenshot;
+    }
 
     try {
       await api.post('/feedbacks', paramsToSubmit);
@@ -42,7 +46,7 @@ export function FeedbackContentStep({
       onFeedbackSent();
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        console.log(err);
+        console.log(err.response?.data || err.message);
       }
     } finally {
       setIsSendingFeedback(false);
@@ -57,7 +61,17 @@ export function FeedbackContentStep({
           className="top-5 left-5 absolute text-zinc-400 hover:text-zinc-100 transition-colors"
           onClick={onRestartFeedback}
         >
-          <ArrowLeft weight="bold" className="w-4 h-4" />
+          <ArrowLeft
+            weight="bold"
+            className="
+              w-4
+              h-4
+              dark:text-zinc-400
+              dark:hover:text-zinc-100 
+              hover:text-zinc-800 
+              text-zinc-500
+            "
+          />
         </button>
 
         <span className="text-xl leading-6 flex items-center gap-2">
@@ -81,8 +95,9 @@ export function FeedbackContentStep({
             min-h-[112px]
             text-sm
             placeholder-zinc-400 
-            text-zinc-100 
-            border-zinc-600 
+            dark:text-zinc-100 
+            dark:border-zinc-600
+            border-zinc-300
             bg-transparent  
             rounded-md
             focus:border-brand-500
@@ -90,9 +105,11 @@ export function FeedbackContentStep({
             focus:ring-1
             resize-none
             focus:outline-none
-            scrollbar-thumb-zinc-700
+            dark:scrollbar-thumb-zinc-700
+            scrollbar-thumb-zinc-300
             scrollbar-track-transparent
             scrollbar-thin
+            transition-all
           "
           placeholder="Tell in details what's happening..."
           value={comment}
@@ -110,14 +127,15 @@ export function FeedbackContentStep({
             disabled={!comment || isSendingFeedback}
             className="
               p-2 
-              bg-brand-500 
-              rounded-md 
+              bg-brand-500
+              rounded-md
               border-transparent 
               flex-1 
               flex 
               justify-center 
               items-center 
               text-sm 
+              text-zinc-100
               hover:bg-brand-300
               focus:outline-none
               focus:ring-2

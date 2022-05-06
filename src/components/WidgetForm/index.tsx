@@ -17,7 +17,7 @@ export function WidgetForm(props: WidgetFormProps) {
 
   return (
     <div
-      className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto"
+      className="dark:bg-zinc-900 bg-white p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto"
       {...props}
     >
       {feedbackSent ? (
@@ -36,11 +36,12 @@ export function WidgetForm(props: WidgetFormProps) {
         </>
       )}
 
-      <footer className="text-xs text-neutral-400">
-        made with ♥ by {' '}
+      <footer className="text-xs dark:text-neutral-400 text-zinc-500">
+        made with ♥ by{' '}
         <a
           className="underline underline-offset-2"
           href="https://github.com/tiagobarros01"
+          target="_blank"
         >
           Tiago Barros
         </a>

@@ -7,6 +7,19 @@ import { CloseButton } from '../../CloseButton';
 import { Loading } from '../../Loading';
 import { CameraButton } from '../CameraButton';
 
+function feedbackInputPlaceholder(type: FeedbackType): string {
+  switch (type) {
+    case 'BUG':
+      return 'Is something not working right? We want to change. Tell us in detail what is...';
+
+    case 'IDEA':
+      return 'Got an idea for improvement or a new feature? Tell us!';
+
+    default:
+      return 'We want to hear from you. What would you like to tell us?';
+  }
+}
+
 type FeedbackContentStepProps = ComponentPropsWithoutRef<'div'> & {
   feedbackType: FeedbackType;
   onRestartFeedback(): void;
@@ -55,7 +68,7 @@ export function FeedbackContentStep({
 
   return (
     <>
-      <header {...rest}>
+      <header className="animate-fade" {...rest}>
         <button
           type="button"
           className="top-5 left-5 absolute text-zinc-400 hover:text-zinc-100 transition-colors"
@@ -87,7 +100,10 @@ export function FeedbackContentStep({
         <CloseButton />
       </header>
 
-      <form className="my-4 w-full" onSubmit={handleSubmitFeedback}>
+      <form
+        className="my-4 w-full animate-fade"
+        onSubmit={handleSubmitFeedback}
+      >
         <textarea
           className="
             min-w-[304px]
@@ -111,7 +127,7 @@ export function FeedbackContentStep({
             scrollbar-thin
             transition-all
           "
-          placeholder="Tell in details what's happening..."
+          placeholder={feedbackInputPlaceholder(feedbackType)}
           value={comment}
           onChange={(event) => setComment(event.target.value)}
         />

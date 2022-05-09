@@ -105,6 +105,7 @@ export function FeedbackContentStep({
         onSubmit={handleSubmitFeedback}
       >
         <textarea
+          data-testid="feedback-textarea"
           className="
             min-w-[304px]
             w-full
